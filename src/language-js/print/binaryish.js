@@ -229,8 +229,7 @@ function printBinaryishExpressions(
   const lineBeforeOperator =
     (node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
-      isVueFilterSequenceExpression(path, options)) &&
-    !hasLeadingOwnLineComment(options.originalText, node.right);
+      !hasLeadingOwnLineComment(options.originalText, node.right));
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
   const rightSuffix =

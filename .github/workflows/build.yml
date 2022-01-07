@@ -1,0 +1,43 @@
+name: Build
+on:
+  push:
+    branches:
+      - "main"
+
+jobs:
+  build:
+    concurrency:
+      group: build
+      cancel-in-progress: true
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2
+        with:
+          ref: "main"
+      - name: Setup Node.js
+        uses: actions/setup-node@v2
+        with:
+          version: "14"
+          cache: "yarn"
+      - name: Install Dependencies
+        run: yarn install --frozen-lockfile
+      - name: Build
+        run: yarn build
+      - name: Extract dist content
+        run: |
+          git config user.name github-actions
+          git config user.email github-actions@users.noreply.github.com
+          grep -vw "dist" .gitignore > .gitignore.bak
+          mv .gitignore.bak .gitignore
+          git add dist
+          git stash -- dist
+          git reset --hard HEAD
+          git fetch && git checkout build && git pull
+          git stash pop
+          git restore --staged dist
+          cp -rv dist/* .
+          rm -rf dist/
+          git commit -a -m 'chore: deploy'
+          git push
+          git rev-parse HEAD

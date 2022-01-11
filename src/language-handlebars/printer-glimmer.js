@@ -203,7 +203,7 @@ function print(path, options, print) {
       if (options.htmlWhitespaceSensitivity !== "ignore") {
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
-        const shouldTrimTrailingNewlines = false; // isLast && path.parent.type === "Template";
+        const shouldTrimTrailingNewlines = isLast && path.parent.type === "Template";
         const shouldTrimLeadingNewlines =
           isFirst && path.parent.type === "Template";
 

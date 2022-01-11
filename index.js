@@ -52106,7 +52106,13 @@ function print(path, options, print) {
     case "Program":
     case "Template":
       {
-        return group$9(path.map(print, "body"));
+        const gp = path.map(print, "body");
+
+        if (node.type === "Template") {
+          gp.push(generateHardlines(1));
+        }
+
+        return group$9(gp);
       }
 
     case "ElementNode":
@@ -52233,8 +52239,7 @@ function print(path, options, print) {
           const trailingWhitespacesRE = /[\t\n\f\r ]*$/; // let's remove the file's final newline
           // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
 
-          const shouldTrimTrailingNewlines = false; // isLastElement && isParentOfSomeType(path, ["Template"]);
-
+          const shouldTrimTrailingNewlines = isLastElement && isParentOfSomeType(path, ["Template"]);
           const shouldTrimLeadingNewlines = isFirstElement && isParentOfSomeType(path, ["Template"]);
 
           if (isWhitespaceOnly) {
@@ -52274,7 +52279,7 @@ function print(path, options, print) {
           let trailBreaks = [];
 
           if (tail) {
-            {
+            if (!shouldTrimTrailingNewlines) {
               trailBreaks = [line$c];
               const trailingNewlines = countNewLines(tail);
 

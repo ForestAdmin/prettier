@@ -52402,23 +52402,77 @@ function print(path, options, print) {
       throw new Error("unknown glimmer type: " + JSON.stringify(node.type));
   }
 }
-/* ElementNode print helpers */
+/* 
+<Test
+  @first={{truc}}
+  @second={{yep}} {{! toto}}
+  are={{fjekw}}
+  bre={{fgehj}}
+  data-test-truc
+  {{on 'click' truc}}
+  ...attributes
+/> 
+*/
 
 
-function sortByLoc(a, b) {
-  return locStart$b(a) - locStart$b(b);
+function sortAttributes(nodeAttr) {
+  if (!isNonEmptyArray$4(nodeAttr)) {
+    return [[], []];
+  }
+
+  const attributes = nodeAttr.filter(a => a.name !== "...attributes");
+  attributes.sort((a, b) => {
+    const nameA = a.name.toUpperCase();
+    const nameB = b.name.toUpperCase();
+
+    if (nameA < nameB) {
+      return -1;
+    }
+
+    if (nameA > nameB) {
+      return 1;
+    }
+
+    return 0;
+  });
+  const attrWithoutDataTest = attributes.filter(a => !a.name.startsWith("data-test"));
+  const attrDataTest = attributes.filter(a => a.name.startsWith("data-test"));
+  const attrSplat = nodeAttr.filter(a => a.name === "...attributes");
+  const sortedAttributes = [...attrWithoutDataTest, ...attrDataTest];
+  return [attrSplat, sortedAttributes];
 }
 
 function printStartingTag(path, print) {
   const node = path.getValue();
   const types = ["attributes", "modifiers", "comments"].filter(property => isNonEmptyArray$4(node[property]));
-  const attributes = types.flatMap(type => node[type]).sort(sortByLoc);
+  let splattributes = [];
+  [splattributes, node.attributes] = sortAttributes(node.attributes);
+  node.modifiers.sort((m1, m2) => {
+    const original1 = m1.path.original.toUpperCase();
+    const original2 = m2.path.original.toUpperCase();
+
+    if (original1 < original2) {
+      return -1;
+    }
+
+    if (original1 > original2) {
+      return 1;
+    }
+
+    return 0;
+  }); // const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
+
+  const attributes = [...node.attributes, ...node.modifiers, ...node.comments];
 
   for (const attributeType of types) {
     path.each(attributePath => {
       const index = attributes.indexOf(attributePath.getValue());
       attributes.splice(index, 1, [line$c, print()]);
     }, attributeType);
+  }
+
+  if (isNonEmptyArray$4(splattributes)) {
+    attributes.push(line$c, "...attributes");
   }
 
   if (isNonEmptyArray$4(node.blockParams)) {

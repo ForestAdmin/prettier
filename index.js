@@ -52420,8 +52420,7 @@ function sortAttributes(nodeAttr) {
     return [[], []];
   }
 
-  const attributes = nodeAttr.filter(a => a.name !== "...attributes");
-  attributes.sort((a, b) => {
+  const alphaSort = (a, b) => {
     const nameA = a.name.toUpperCase();
     const nameB = b.name.toUpperCase();
 
@@ -52434,19 +52433,29 @@ function sortAttributes(nodeAttr) {
     }
 
     return 0;
-  });
-  const attrWithoutDataTest = attributes.filter(a => !a.name.startsWith("data-test"));
-  const attrDataTest = attributes.filter(a => a.name.startsWith("data-test"));
-  const attrSplat = nodeAttr.filter(a => a.name === "...attributes");
-  const sortedAttributes = [...attrWithoutDataTest, ...attrDataTest];
-  return [attrSplat, sortedAttributes];
+  };
+
+  const attrDataTest = nodeAttr.filter(a => a.name.startsWith("data-test"));
+  const attrWithoutDataTest = nodeAttr.filter(a => !a.name.startsWith("data-test"));
+  const customAttr = attrWithoutDataTest.filter(a => a.name.startsWith("@"));
+  const attrWithoutDataTestAndCustom = attrWithoutDataTest.filter(a => !a.name.startsWith("@"));
+  const splatIndex = attrWithoutDataTestAndCustom.findIndex(a => a.name === "...attributes");
+
+  if (splatIndex < 0) {
+    attrWithoutDataTest.sort(alphaSort);
+    attrDataTest.sort(alphaSort);
+    return [...attrWithoutDataTest, ...attrDataTest];
+  }
+
+  const attrAboveSplat = attrWithoutDataTestAndCustom.slice(0, splatIndex);
+  const attrBelowSplat = attrWithoutDataTestAndCustom.slice(splatIndex + 1, attrWithoutDataTestAndCustom.length);
+  return [...customAttr.sort(alphaSort), ...attrAboveSplat.sort(alphaSort), attrWithoutDataTestAndCustom[splatIndex], ...attrBelowSplat.sort(alphaSort), ...attrDataTest.sort(alphaSort)];
 }
 
 function printStartingTag(path, print) {
   const node = path.getValue();
   const types = ["attributes", "modifiers", "comments"].filter(property => isNonEmptyArray$4(node[property]));
-  let splattributes = [];
-  [splattributes, node.attributes] = sortAttributes(node.attributes);
+  node.attributes = sortAttributes(node.attributes);
   node.modifiers.sort((m1, m2) => {
     const original1 = m1.path.original.toUpperCase();
     const original2 = m2.path.original.toUpperCase();
@@ -52469,10 +52478,6 @@ function printStartingTag(path, print) {
       const index = attributes.indexOf(attributePath.getValue());
       attributes.splice(index, 1, [line$c, print()]);
     }, attributeType);
-  }
-
-  if (isNonEmptyArray$4(splattributes)) {
-    attributes.push(line$c, "...attributes");
   }
 
   if (isNonEmptyArray$4(node.blockParams)) {

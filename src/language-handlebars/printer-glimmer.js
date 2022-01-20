@@ -412,9 +412,7 @@ function sortAttributes(nodeAttr) {
   if (!isNonEmptyArray(nodeAttr)) {
     return [[], []];
   }
-
-  const attributes = nodeAttr.filter((a) => a.name !== "...attributes");
-  attributes.sort((a, b) => {
+  const alphaSort = (a, b) => {
     const nameA = a.name.toUpperCase();
     const nameB = b.name.toUpperCase();
     if (nameA < nameB) {
@@ -424,14 +422,37 @@ function sortAttributes(nodeAttr) {
       return 1;
     }
     return 0;
-  });
-  const attrWithoutDataTest = attributes.filter(
+  };
+
+  const attrDataTest = nodeAttr.filter((a) => a.name.startsWith("data-test"));
+  const attrWithoutDataTest = nodeAttr.filter(
     (a) => !a.name.startsWith("data-test")
   );
-  const attrDataTest = attributes.filter((a) => a.name.startsWith("data-test"));
-  const attrSplat = nodeAttr.filter((a) => a.name === "...attributes");
-  const sortedAttributes = [...attrWithoutDataTest, ...attrDataTest];
-  return [attrSplat, sortedAttributes];
+  const customAttr = attrWithoutDataTest.filter((a) => a.name.startsWith("@"));
+  const attrWithoutDataTestAndCustom = attrWithoutDataTest.filter(
+    (a) => !a.name.startsWith("@")
+  );
+  const splatIndex = attrWithoutDataTestAndCustom.findIndex(
+    (a) => a.name === "...attributes"
+  );
+  if (splatIndex < 0) {
+    attrWithoutDataTest.sort(alphaSort);
+    attrDataTest.sort(alphaSort);
+    return [...attrWithoutDataTest, ...attrDataTest];
+  }
+
+  const attrAboveSplat = attrWithoutDataTestAndCustom.slice(0, splatIndex);
+  const attrBelowSplat = attrWithoutDataTestAndCustom.slice(
+    splatIndex + 1,
+    attrWithoutDataTestAndCustom.length
+  );
+  return [
+    ...customAttr.sort(alphaSort),
+    ...attrAboveSplat.sort(alphaSort),
+    attrWithoutDataTestAndCustom[splatIndex],
+    ...attrBelowSplat.sort(alphaSort),
+    ...attrDataTest.sort(alphaSort),
+  ];
 }
 
 function printStartingTag(path, print) {
@@ -441,8 +462,7 @@ function printStartingTag(path, print) {
     isNonEmptyArray(node[property]),
   );
 
-  let splattributes = [];
-  [splattributes, node.attributes] = sortAttributes(node.attributes);
+  node.attributes = sortAttributes(node.attributes);
   node.modifiers.sort((m1, m2) => {
     const original1 = m1.path.original.toUpperCase();
     const original2 = m2.path.original.toUpperCase();
@@ -463,10 +483,6 @@ function printStartingTag(path, print) {
       const index = attributes.indexOf(node);
       attributes.splice(index, 1, [line, print()]);
     }, attributeType);
-  }
-
-  if (isNonEmptyArray(splattributes)) {
-    attributes.push(line, "...attributes");
   }
 
   if (isNonEmptyArray(node.blockParams)) {

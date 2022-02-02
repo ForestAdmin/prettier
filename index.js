@@ -35714,51 +35714,13 @@ var require_printer_glimmer = __commonJS2({
           throw new Error("unknown glimmer type: " + JSON.stringify(node.type));
       }
     }
-    function sortAttributes(nodeAttr) {
-      if (!isNonEmptyArray(nodeAttr)) {
-        return [[], []];
-      }
-      const alphaSort = (a, b) => {
-        const nameA = a.name.toUpperCase();
-        const nameB = b.name.toUpperCase();
-        if (nameA < nameB) {
-          return -1;
-        }
-        if (nameA > nameB) {
-          return 1;
-        }
-        return 0;
-      };
-      const attrDataTest = nodeAttr.filter((a) => a.name.startsWith("data-test"));
-      const attrWithoutDataTest = nodeAttr.filter((a) => !a.name.startsWith("data-test"));
-      const customAttr = attrWithoutDataTest.filter((a) => a.name.startsWith("@"));
-      const attrWithoutDataTestAndCustom = attrWithoutDataTest.filter((a) => !a.name.startsWith("@"));
-      const splatIndex = attrWithoutDataTestAndCustom.findIndex((a) => a.name === "...attributes");
-      if (splatIndex < 0) {
-        attrWithoutDataTest.sort(alphaSort);
-        attrDataTest.sort(alphaSort);
-        return [...attrWithoutDataTest, ...attrDataTest];
-      }
-      const attrAboveSplat = attrWithoutDataTestAndCustom.slice(0, splatIndex);
-      const attrBelowSplat = attrWithoutDataTestAndCustom.slice(splatIndex + 1, attrWithoutDataTestAndCustom.length);
-      return [...customAttr.sort(alphaSort), ...attrAboveSplat.sort(alphaSort), attrWithoutDataTestAndCustom[splatIndex], ...attrBelowSplat.sort(alphaSort), ...attrDataTest.sort(alphaSort)];
+    function sortByLoc(a, b) {
+      return locStart(a) - locStart(b);
     }
     function printStartingTag(path, print2) {
       const node = path.getValue();
       const types = ["attributes", "modifiers", "comments"].filter((property) => isNonEmptyArray(node[property]));
-      node.attributes = sortAttributes(node.attributes);
-      node.modifiers.sort((m1, m2) => {
-        const original1 = m1.path.original.toUpperCase();
-        const original2 = m2.path.original.toUpperCase();
-        if (original1 < original2) {
-          return -1;
-        }
-        if (original1 > original2) {
-          return 1;
-        }
-        return 0;
-      });
-      const attributes = [...node.attributes, ...node.modifiers, ...node.comments];
+      const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
       for (const attributeType of types) {
         path.each((attributePath) => {
           const index = attributes.indexOf(attributePath.getValue());

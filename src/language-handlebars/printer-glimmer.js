@@ -462,21 +462,23 @@ function printStartingTag(path, print) {
     isNonEmptyArray(node[property]),
   );
 
-  node.attributes = sortAttributes(node.attributes);
-  node.modifiers.sort((m1, m2) => {
-    const original1 = m1.path.original.toUpperCase();
-    const original2 = m2.path.original.toUpperCase();
-    if (original1 < original2) {
-      return -1;
-    }
-    if (original1 > original2) {
-      return 1;
-    }
-    return 0;
-  });
+  // Attributes Sorting/Ordering
+  // node.attributes = sortAttributes(node.attributes);
+  // node.modifiers.sort((m1, m2) => {
+  //   const original1 = m1.path.original.toUpperCase();
+  //   const original2 = m2.path.original.toUpperCase();
+  //   if (original1 < original2) {
+  //     return -1;
+  //   }
+  //   if (original1 > original2) {
+  //     return 1;
+  //   }
+  //   return 0;
+  // });
 
-  // const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
-  const attributes = [...node.attributes, ...node.modifiers, ...node.comments];
+  const attributes = types.flatMap((type) => node[type]).sort(sortByLoc);
+  // Attributes Sorting/Ordering
+  // const attributes = [...node.attributes, ...node.modifiers, ...node.comments];
 
   for (const attributeType of types) {
     path.each(({ node }) => {

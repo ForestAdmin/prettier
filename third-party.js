@@ -1,31 +1,7 @@
 "use strict";
 
 // dist/third-party.js
-var __defProp = Object.defineProperty;
-var __defProps = Object.defineProperties;
-var __getOwnPropDescs = Object.getOwnPropertyDescriptors;
 var __getOwnPropNames = Object.getOwnPropertyNames;
-var __getOwnPropSymbols = Object.getOwnPropertySymbols;
-var __hasOwnProp = Object.prototype.hasOwnProperty;
-var __propIsEnum = Object.prototype.propertyIsEnumerable;
-var __defNormalProp = (obj, key, value) => key in obj ? __defProp(obj, key, {
-  enumerable: true,
-  configurable: true,
-  writable: true,
-  value
-}) : obj[key] = value;
-var __spreadValues = (a, b) => {
-  for (var prop in b || (b = {}))
-    if (__hasOwnProp.call(b, prop))
-      __defNormalProp(a, prop, b[prop]);
-  if (__getOwnPropSymbols)
-    for (var prop of __getOwnPropSymbols(b)) {
-      if (__propIsEnum.call(b, prop))
-        __defNormalProp(a, prop, b[prop]);
-    }
-  return a;
-};
-var __spreadProps = (a, b) => __defProps(a, __getOwnPropDescs(b));
 var __commonJS = (cb, mod) => function __require() {
   return mod || (0, cb[__getOwnPropNames(cb)[0]])((mod = {
     exports: {}
@@ -74,48 +50,10 @@ var require_resolve_from = __commonJS({
     module2.exports.silent = (fromDir, moduleId) => resolveFrom(fromDir, moduleId, true);
   }
 });
-var require_callsites = __commonJS({
-  "node_modules/callsites/index.js"(exports2, module2) {
-    "use strict";
-    var callsites = () => {
-      const _prepareStackTrace = Error.prepareStackTrace;
-      Error.prepareStackTrace = (_, stack2) => stack2;
-      const stack = new Error().stack.slice(1);
-      Error.prepareStackTrace = _prepareStackTrace;
-      return stack;
-    };
-    module2.exports = callsites;
-    module2.exports.default = callsites;
-  }
-});
 var require_parent_module = __commonJS({
-  "node_modules/parent-module/index.js"(exports2, module2) {
+  "scripts/build/shims/parent-module.cjs"(exports2, module2) {
     "use strict";
-    var callsites = require_callsites();
-    module2.exports = (filepath) => {
-      const stacks = callsites();
-      if (!filepath) {
-        return stacks[2].getFileName();
-      }
-      let seenVal = false;
-      stacks.shift();
-      for (const stack of stacks) {
-        const parentFilepath = stack.getFileName();
-        if (typeof parentFilepath !== "string") {
-          continue;
-        }
-        if (parentFilepath === filepath) {
-          seenVal = true;
-          continue;
-        }
-        if (parentFilepath === "module.js") {
-          continue;
-        }
-        if (seenVal && parentFilepath !== filepath) {
-          return parentFilepath;
-        }
-      }
-    };
+    module2.exports = (file) => file;
   }
 });
 var require_import_fresh = __commonJS({
@@ -128,7 +66,7 @@ var require_import_fresh = __commonJS({
       if (typeof moduleId !== "string") {
         throw new TypeError("Expected a string");
       }
-      const parentPath = __filename;
+      const parentPath = parentModule(__filename);
       const cwd = parentPath ? path.dirname(parentPath) : __dirname;
       const filePath = resolveFrom(cwd, moduleId);
       const oldModule = require.cache[filePath];
@@ -1677,7 +1615,7 @@ var require_color_convert = __commonJS({
   }
 });
 var require_ansi_styles = __commonJS({
-  "node_modules/@babel/highlight/node_modules/ansi-styles/index.js"(exports2, module2) {
+  "node_modules/ansi-styles/index.js"(exports2, module2) {
     "use strict";
     var colorConvert = require_color_convert();
     var wrapAnsi16 = (fn, offset) => function() {
@@ -2272,7 +2210,7 @@ var require_lib2 = __commonJS({
       }) : _chalk;
     }
     function highlight(code, options = {}) {
-      if (shouldHighlight(options)) {
+      if (code !== "" && shouldHighlight(options)) {
         const chalk = getChalk(options);
         const defs = getDefs(chalk);
         return highlightTokens(defs, code);
@@ -8700,8 +8638,8 @@ var require_dist2 = __commonJS({
         transform: identity,
         loaders: defaultLoaders
       };
-      const normalizedOptions = __spreadProps(__spreadValues(__spreadValues({}, defaults), options), {
-        loaders: __spreadValues(__spreadValues({}, defaults.loaders), options.loaders)
+      const normalizedOptions = Object.assign(Object.assign(Object.assign({}, defaults), options), {}, {
+        loaders: Object.assign(Object.assign({}, defaults.loaders), options.loaders)
       });
       return normalizedOptions;
     }

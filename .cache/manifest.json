@@ -1,0 +1,116 @@
+{
+  "version": "v38",
+  "checksums": {
+    "yarn.lock": "b566cfd2ae5251e47312a431905af3ca",
+    "src/index.js": "fd81a5ba0d110f95a38677107b1cf917",
+    "src/document/index.js": "f08730247880a84b03bee6ce755bfda2",
+    "src/standalone.js": "d87f4039d28633fd040b169a2b827e3b",
+    "bin/prettier.js": "a720680b9ee13d57851e249f73055621",
+    "src/common/third-party.js": "68b2bf3b03667aad38b4a0fcbe7eb87b",
+    "src/language-js/parse/babel.js": "87135f9d09f787af3fc441a27783f6ce",
+    "src/language-js/parse/flow.js": "c7b2634089d6ee775cc954153ff67bff",
+    "src/language-js/parse/typescript.js": "76f42181441d3ece7ff6213c9ac0ac75",
+    "src/language-js/parse/espree.js": "de86ebc8daf076ef871aeeea886c99d1",
+    "src/language-js/parse/meriyah.js": "ab3c8a6c78d460a2492b70ce9d76111a",
+    "src/language-js/parse/angular.js": "eb4f3494683124f9b645ed7375c7e131",
+    "src/language-css/parser-postcss.js": "abbce58c619217b766328805cf75510a",
+    "dist/parser-postcss.js": "342e053f4db9991feb94ba243e306e2f",
+    "src/language-graphql/parser-graphql.js": "cb8486f1f07acc72a8d7dc446b304336",
+    "src/language-markdown/parser-markdown.js": "382722bed0a3cc21fc38087dfb3d0bcd",
+    "src/language-handlebars/parser-glimmer.js": "d28331518efdef9a2060535734c053a0",
+    "src/language-html/parser-html.js": "5e02a1b0b4a9d66ae4893c80636a8bfc",
+    "src/language-yaml/parser-yaml.js": "88bf7981bdae9a849e8ab4cd55976eb2"
+  },
+  "files": {
+    "index.js": [
+      "src/index.js"
+    ],
+    "doc.js": [
+      "src/document/index.js"
+    ],
+    "standalone.js": [
+      "src/standalone.js"
+    ],
+    "esm/standalone.mjs": [
+      "src/standalone.js"
+    ],
+    "bin-prettier.js": [
+      "bin/prettier.js"
+    ],
+    "third-party.js": [
+      "src/common/third-party.js"
+    ],
+    "parser-babel.js": [
+      "src/language-js/parse/babel.js"
+    ],
+    "esm/parser-babel.mjs": [
+      "src/language-js/parse/babel.js"
+    ],
+    "parser-flow.js": [
+      "src/language-js/parse/flow.js"
+    ],
+    "esm/parser-flow.mjs": [
+      "src/language-js/parse/flow.js"
+    ],
+    "parser-typescript.js": [
+      "src/language-js/parse/typescript.js"
+    ],
+    "esm/parser-typescript.mjs": [
+      "src/language-js/parse/typescript.js"
+    ],
+    "parser-espree.js": [
+      "src/language-js/parse/espree.js"
+    ],
+    "esm/parser-espree.mjs": [
+      "src/language-js/parse/espree.js"
+    ],
+    "parser-meriyah.js": [
+      "src/language-js/parse/meriyah.js"
+    ],
+    "esm/parser-meriyah.mjs": [
+      "src/language-js/parse/meriyah.js"
+    ],
+    "parser-angular.js": [
+      "src/language-js/parse/angular.js"
+    ],
+    "esm/parser-angular.mjs": [
+      "src/language-js/parse/angular.js"
+    ],
+    "parser-postcss.js": [
+      "src/language-css/parser-postcss.js"
+    ],
+    "esm/parser-postcss.mjs": [
+      "dist/parser-postcss.js"
+    ],
+    "parser-graphql.js": [
+      "src/language-graphql/parser-graphql.js"
+    ],
+    "esm/parser-graphql.mjs": [
+      "src/language-graphql/parser-graphql.js"
+    ],
+    "parser-markdown.js": [
+      "src/language-markdown/parser-markdown.js"
+    ],
+    "esm/parser-markdown.mjs": [
+      "src/language-markdown/parser-markdown.js"
+    ],
+    "parser-glimmer.js": [
+      "src/language-handlebars/parser-glimmer.js"
+    ],
+    "esm/parser-glimmer.mjs": [
+      "src/language-handlebars/parser-glimmer.js"
+    ],
+    "parser-html.js": [
+      "src/language-html/parser-html.js"
+    ],
+    "esm/parser-html.mjs": [
+      "src/language-html/parser-html.js"
+    ],
+    "parser-yaml.js": [
+      "src/language-yaml/parser-yaml.js"
+    ],
+    "esm/parser-yaml.mjs": [
+      "src/language-yaml/parser-yaml.js"
+    ]
+  }
+}

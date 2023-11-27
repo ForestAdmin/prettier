@@ -38,7 +38,11 @@ jobs:
           git restore --staged dist
           cp -rv dist/* .
           rm -rf dist/
+          echo "Adding files"
           git add .
+          git status
+          echo "Before commit"
           git commit -m 'chore: deploy'
+          echo "After commit"
           git push
           git rev-parse HEAD

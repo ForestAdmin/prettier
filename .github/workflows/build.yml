@@ -38,6 +38,7 @@ jobs:
           git restore --staged dist
           cp -rv dist/* .
           rm -rf dist/
-          git commit -a -m 'chore: deploy'
+          git add .
+          git commit -m 'chore: deploy'
           git push
           git rev-parse HEAD

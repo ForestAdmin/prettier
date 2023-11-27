@@ -41,6 +41,7 @@ jobs:
           echo "Adding files"
           git add .
           git status
+          cat .gitignore
           echo "Before commit"
           git commit -m 'chore: deploy'
           echo "After commit"

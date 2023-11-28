@@ -36,6 +36,7 @@ jobs:
           git fetch && git checkout build && git pull
           git stash pop
           git restore --staged dist
+          rm *.js *.ts *.md
           cp -rv dist/* .
           rm -rf dist/
           echo "Adding files"

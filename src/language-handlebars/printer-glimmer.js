@@ -203,7 +203,7 @@ function print(path, options, print) {
       if (options.htmlWhitespaceSensitivity !== "ignore") {
         // let's remove the file's final newline
         // https://github.com/ember-cli/ember-new-output/blob/1a04c67ddd02ccb35e0ff41bb5cbce34b31173ef/.editorconfig#L16
-        const shouldTrimTrailingNewlines = isLast && path.parent.type === "Template";
+        const shouldTrimTrailingNewlines = false;
         const shouldTrimLeadingNewlines =
           isFirst && path.parent.type === "Template";
 
@@ -426,14 +426,14 @@ function sortAttributes(nodeAttr) {
 
   const attrDataTest = nodeAttr.filter((a) => a.name.startsWith("data-test"));
   const attrWithoutDataTest = nodeAttr.filter(
-    (a) => !a.name.startsWith("data-test")
+    (a) => !a.name.startsWith("data-test"),
   );
   const customAttr = attrWithoutDataTest.filter((a) => a.name.startsWith("@"));
   const attrWithoutDataTestAndCustom = attrWithoutDataTest.filter(
-    (a) => !a.name.startsWith("@")
+    (a) => !a.name.startsWith("@"),
   );
   const splatIndex = attrWithoutDataTestAndCustom.findIndex(
-    (a) => a.name === "...attributes"
+    (a) => a.name === "...attributes",
   );
   if (splatIndex < 0) {
     attrWithoutDataTest.sort(alphaSort);
@@ -444,7 +444,7 @@ function sortAttributes(nodeAttr) {
   const attrAboveSplat = attrWithoutDataTestAndCustom.slice(0, splatIndex);
   const attrBelowSplat = attrWithoutDataTestAndCustom.slice(
     splatIndex + 1,
-    attrWithoutDataTestAndCustom.length
+    attrWithoutDataTestAndCustom.length,
   );
   return [
     ...customAttr.sort(alphaSort),
@@ -779,9 +779,15 @@ function needsOppositeQuote(path) {
   const level = ancestors.findIndex((node) => node.type !== "SubExpression");
 
   return (
-    level !== -1 &&
-    ancestors[level + 1].type === "ConcatStatement" &&
-    ancestors[level + 2].type === "AttrNode"
+    (level !== -1 &&
+      ancestors[level + 1].type === "ConcatStatement" &&
+      ancestors[level + 2].type === "AttrNode") ||
+    ancestors.some(
+      (node) =>
+        node.type === "MustacheStatement" ||
+        node.type === "BlockStatement" ||
+        node.type === "ElementModifierStatement",
+    )
   );
 }
 

@@ -1371,19 +1371,23 @@ var require_src = __commonJS({
             return void 0;
           }
           if (isArray) {
-            return data.map((row, index) => {
+            const result = [];
+            for (let row of data) {
               if (typeof row === "string") {
                 row = this.opts.deserialize(row);
               }
               if (row === void 0 || row === null) {
-                return void 0;
+                result.push(void 0);
+                continue;
               }
               if (typeof row.expires === "number" && Date.now() > row.expires) {
-                this.delete(key[index]).then(() => void 0);
-                return void 0;
+                this.delete(key).then(() => void 0);
+                result.push(void 0);
+              } else {
+                result.push(options && options.raw ? row : row.value);
               }
-              return options && options.raw ? row : row.value;
-            });
+            }
+            return result;
           }
           if (typeof data.expires === "number" && Date.now() > data.expires) {
             return this.delete(key).then(() => void 0);
@@ -6414,7 +6418,7 @@ async function getOptionsOrDie(context, filePath) {
     return options;
   } catch (error) {
     context.logger.error(
-      `Invalid configuration${filePath ? ` for file "${filePath}"` : ""}:
+      `Invalid configuration for file "${filePath}":
 ` + error.message
     );
     process.exit(2);
@@ -6976,7 +6980,7 @@ async function formatStdin(context) {
     }
     const options = await get_options_for_file_default(
       context,
-      filepath ? path8.resolve(filepath) : void 0
+      filepath ? path8.resolve(process.cwd(), filepath) : process.cwd()
     );
     if (await listDifferent(context, input, options, "(stdin)")) {
       return;

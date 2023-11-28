@@ -210,6 +210,46 @@ var require_dist = __commonJS({
   }
 });
 
+// node_modules/find-parent-dir/index.js
+var require_find_parent_dir = __commonJS({
+  "node_modules/find-parent-dir/index.js"(exports, module) {
+    "use strict";
+    var path = __require("path");
+    var fs2 = __require("fs");
+    var exists = fs2.exists || path.exists;
+    var existsSync = fs2.existsSync || path.existsSync;
+    function splitPath(path2) {
+      var parts = path2.split(/(\/|\\)/);
+      if (!parts.length)
+        return parts;
+      return !parts[0].length ? parts.slice(1) : parts;
+    }
+    exports = module.exports = function(currentFullPath, clue, cb) {
+      function testDir(parts) {
+        if (parts.length === 0)
+          return cb(null, null);
+        var p = parts.join("");
+        exists(path.join(p, clue), function(itdoes) {
+          if (itdoes)
+            return cb(null, p);
+          testDir(parts.slice(0, -1));
+        });
+      }
+      testDir(splitPath(currentFullPath));
+    };
+    exports.sync = function(currentFullPath, clue) {
+      function testDir(parts) {
+        if (parts.length === 0)
+          return null;
+        var p = parts.join("");
+        var itdoes = existsSync(path.join(p, clue));
+        return itdoes ? p : testDir(parts.slice(0, -1));
+      }
+      return testDir(splitPath(currentFullPath));
+    };
+  }
+});
+
 // node_modules/ci-info/vendors.json
 var require_vendors = __commonJS({
   "node_modules/ci-info/vendors.json"(exports, module) {
@@ -625,6 +665,7 @@ var require_ci_info = __commonJS({
 
 // src/common/mockable.js
 var import_lilconfig = __toESM(require_dist(), 1);
+var import_find_parent_dir = __toESM(require_find_parent_dir(), 1);
 import fs from "fs/promises";
 
 // node_modules/get-stdin/index.js
@@ -660,6 +701,7 @@ function writeFormattedFile(file, data) {
 }
 var mockable = {
   lilconfig: import_lilconfig.lilconfig,
+  findParentDir: import_find_parent_dir.sync,
   getStdin,
   isCI: () => import_ci_info.isCI,
   writeFormattedFile

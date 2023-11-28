@@ -94,7 +94,7 @@ Author: The Babel Team (https://babel.dev/team)
 
 ----------------------------------------
 
-### @babel/highlight@v7.23.4
+### @babel/highlight@v7.22.13
 
 > Syntax highlight JavaScript strings for output in terminals.
 
@@ -187,7 +187,7 @@ License: MIT
 
 ----------------------------------------
 
-### @glimmer/syntax@v0.85.13
+### @glimmer/syntax@v0.85.12
 
 > Copyright (c) 2015 Tilde, Inc.
 >
@@ -211,7 +211,7 @@ License: MIT
 
 ----------------------------------------
 
-### @glimmer/util@v0.85.13
+### @glimmer/util@v0.85.12
 
 > Common utilities used in Glimmer
 
@@ -239,7 +239,7 @@ License: MIT
 
 ----------------------------------------
 
-### @glimmer/wire-format@v0.85.13
+### @glimmer/wire-format@v0.85.12
 
 License: MIT
 
@@ -583,7 +583,7 @@ Repository: <https://github.com/acornjs/acorn-jsx>
 
 ----------------------------------------
 
-### angular-estree-parser@v9.0.0
+### angular-estree-parser@v8.0.3
 
 > A parser that converts Angular source code into an ESTree-compatible form
 
@@ -1599,7 +1599,7 @@ Author: Matteo Collina <hello@matteocollina.com>
 
 ----------------------------------------
 
-### file-entry-cache@v7.0.2
+### file-entry-cache@v7.0.1
 
 > Super simple cache for file metadata, useful for process that work o a given series of files and that only need to repeat the job on the changed ones since the previous run of the process
 
@@ -1688,6 +1688,41 @@ Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 ----------------------------------------
 
+### find-parent-dir@v0.3.1
+
+> Finds the first parent directory that contains a given file or directory.
+
+License: MIT
+Homepage: <https://github.com/thlorenz/find-parent-dir>
+Repository: <git://github.com/thlorenz/find-parent-dir.git>
+Author: Thorsten Lorenz <thlorenz@gmx.de> (http://thlorenz.com)
+
+> Copyright 2013 Thorsten Lorenz. 
+> All rights reserved.
+>
+> Permission is hereby granted, free of charge, to any person
+> obtaining a copy of this software and associated documentation
+> files (the "Software"), to deal in the Software without
+> restriction, including without limitation the rights to use,
+> copy, modify, merge, publish, distribute, sublicense, and/or sell
+> copies of the Software, and to permit persons to whom the
+> Software is furnished to do so, subject to the following
+> conditions:
+>
+> The above copyright notice and this permission notice shall be
+> included in all copies or substantial portions of the Software.
+>
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND,
+> EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES
+> OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND
+> NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT
+> HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY,
+> WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+> FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR
+> OTHER DEALINGS IN THE SOFTWARE.
+
+----------------------------------------
+
 ### find-up@v6.3.0
 
 > Find a file or directory by walking up parent directories
@@ -1707,7 +1742,7 @@ Author: Sindre Sorhus <sindresorhus@gmail.com> (https://sindresorhus.com)
 
 ----------------------------------------
 
-### flat-cache@v3.2.0
+### flat-cache@v3.1.1
 
 > A stupidly simple key/value storage using files to persist some data
 
@@ -1800,7 +1835,7 @@ Contributors:
 
 ----------------------------------------
 
-### flow-parser@v0.222.0
+### flow-parser@v0.221.0
 
 > JavaScript parser written in OCaml. Produces ESTree AST
 
@@ -2014,7 +2049,7 @@ Author: Sindre Sorhus <sindresorhus@gmail.com> (sindresorhus.com)
 
 ----------------------------------------
 
-### ignore@v5.3.0
+### ignore@v5.2.4
 
 > Ignore is a manager and filter for .gitignore rules, the one used by eslint, gitbook and many others.
 
@@ -2595,38 +2630,6 @@ Contributors:
 
 ----------------------------------------
 
-### iterate-directory-up@v1.1.1
-
-> Iterate directory up.
-
-License: MIT
-Homepage: <https://github.com/fisker/iterate-directory-up#readme>
-Author: fisker Cheung <lionkay@gmail.com> (https://www.fiskercheung.com/)
-
-> MIT License
->
-> Copyright (c) fisker Cheung <lionkay@gmail.com> (https://www.fiskercheung.com/)
->
-> Permission is hereby granted, free of charge, to any person obtaining a copy
-> of this software and associated documentation files (the "Software"), to deal
-> in the Software without restriction, including without limitation the rights
-> to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-> copies of the Software, and to permit persons to whom the Software is
-> furnished to do so, subject to the following conditions:
->
-> The above copyright notice and this permission notice shall be included in all
-> copies or substantial portions of the Software.
->
-> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-> OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-> SOFTWARE.
-
-----------------------------------------
-
 ### jest-docblock@v29.7.0
 
 License: MIT
@@ -2756,6 +2759,42 @@ Author: Dominic Tarr <dominic.tarr@gmail.com> (http://dominictarr.com)
 
 ----------------------------------------
 
+### json-parse-even-better-errors@v3.0.0
+
+> JSON.parse with context information on error
+
+License: MIT
+Repository: <https://github.com/npm/json-parse-even-better-errors.git>
+Author: GitHub Inc.
+
+> Copyright 2017 Kat Marchán
+> Copyright npm, Inc.
+>
+> Permission is hereby granted, free of charge, to any person obtaining a
+> copy of this software and associated documentation files (the "Software"),
+> to deal in the Software without restriction, including without limitation
+> the rights to use, copy, modify, merge, publish, distribute, sublicense,
+> and/or sell copies of the Software, and to permit persons to whom the
+> Software is furnished to do so, subject to the following conditions:
+>
+> The above copyright notice and this permission notice shall be included in
+> all copies or substantial portions of the Software.
+>
+> THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+> IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+> FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+> AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+> LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING
+> FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER
+> DEALINGS IN THE SOFTWARE.
+>
+> ---
+>
+> This library is a fork of 'better-json-errors' by Kat Marchán, extended and
+> distributed under the terms of the MIT license above.
+
+----------------------------------------
+
 ### json5@v2.2.3
 
 > JSON for Humans
@@ -2795,7 +2834,7 @@ Contributors:
 
 ----------------------------------------
 
-### keyv@v4.5.4
+### keyv@v4.5.3
 
 > Simple key-value storage with support for multiple backends
 
@@ -3213,7 +3252,7 @@ Author: Yoan Arnaudov <jonidev@gmail.com>
 
 ----------------------------------------
 
-### nanoid@v3.3.7
+### nanoid@v3.3.6
 
 > A tiny (116 bytes), secure URL-friendly unique string ID generator
 
@@ -3372,7 +3411,7 @@ Contributors:
 
 ----------------------------------------
 
-### parse-json@v8.1.0
+### parse-json@v8.0.1
 
 > Parse JSON with more helpful errors
 
@@ -4681,7 +4720,7 @@ Contributors:
 
 ----------------------------------------
 
-### url-or-path@v2.3.0
+### url-or-path@v2.1.0
 
 > Convert between file URL and path.
 

@@ -229,7 +229,8 @@ function printBinaryishExpressions(
   const lineBeforeOperator =
     (node.operator === "|>" ||
       node.type === "NGPipeExpression" ||
-      !hasLeadingOwnLineComment(options.originalText, node.right));
+      !shouldInline) &&
+    !hasLeadingOwnLineComment(options.originalText, node.right);
 
   const operator = node.type === "NGPipeExpression" ? "|" : node.operator;
   const rightSuffix =
